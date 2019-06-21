@@ -13,7 +13,7 @@
       "spacing": "medium",
       "size": "default",
       "weight": "bolder",
-      "text": "Welcome to Bot Framework!",
+      "text": "Welcome to AI Bot 2019 Framework!",
       "wrap": true,
       "maxLines": 0
     },
@@ -29,7 +29,7 @@
   "actions": [
     {
       "type": "Action.OpenUrl",
-      "title": "Get an overview",
+      "title": "Continous deployment",
       "url": "https://docs.microsoft.com/en-us/azure/bot-service/?view=azure-bot-service-4.0"
     },
     {
