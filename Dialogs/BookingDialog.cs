@@ -36,7 +36,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             if (bookingDetails.Destination == null)
             {
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Where would you like to travel to?") }, cancellationToken);
+                //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Where would you like to travel to?") }, cancellationToken);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Provide the short description of Incident:") }, cancellationToken);
+
             }
             else
             {
@@ -52,7 +54,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             if (bookingDetails.Origin == null)
             {
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Where are you traveling from?") }, cancellationToken);
+//                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Where are you traveling from?") }, cancellationToken);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please provide details Description of incident:") }, cancellationToken);
+
             }
             else
             {
@@ -69,6 +73,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             {
                 return await stepContext.BeginDialogAsync(nameof(DateResolverDialog), bookingDetails.TravelDate, cancellationToken);
             }
+
+
+
             else
             {
                 return await stepContext.NextAsync(bookingDetails.TravelDate, cancellationToken);

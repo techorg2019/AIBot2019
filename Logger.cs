@@ -39,7 +39,8 @@ namespace SNOW.Logger
                     string json = JsonConvert.SerializeObject(new
                     {
                         description = shortDescription + Environment.NewLine + Environment.NewLine + description,
-                        short_description = Configuration["ServiceNowTicketShortDescription"],
+                        // short_description = Configuration["ServiceNowTicketShortDescription"],
+                        short_description = shortDescription,
                         contact_type = Configuration["ServiceNowContactType"],
                         category = Configuration["ServiceNowCategory"],
                         subcategory = Configuration["ServiceNowSubCategory"],
