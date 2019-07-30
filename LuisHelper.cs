@@ -43,6 +43,10 @@ namespace Microsoft.BotBuilderSamples
                     // TIMEX is a format that represents DateTime expressions that include some ambiguity. e.g. missing a Year.
                     bookingDetails.TravelDate = recognizerResult.Entities["datetime"]?.FirstOrDefault()?["timex"]?.FirstOrDefault()?.ToString().Split('T')[0];
                 }
+
+
+
+
             }
             catch (Exception e)
             {

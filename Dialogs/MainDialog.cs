@@ -52,10 +52,10 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             }
             else
             {
-               // return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
+             //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
 
                 SNOWLogger nOWLogger = new SNOWLogger(Configuration);
-                string incidentno = nOWLogger.CreateIncidentServiceNow("short desctest from bot", "long des");
+                string incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321="+stepContext.Context.Activity.Text);
                 return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(incidentno) }, cancellationToken);
             }
         }
