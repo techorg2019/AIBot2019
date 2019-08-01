@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -95,12 +97,13 @@ namespace SNOW.Logger
                 request.Headers.Add("Content-Type","application/json");
                 request.Headers.Add("Accept","application/json");
                     
-                request.Method = "Post";
+                request.Method = "Get";
+                
 
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                {
-                    string json = JsonConvert.SerializeObject(new
-                    {
+                //using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+               // {
+                 //   string json = JsonConvert.SerializeObject(new
+                   // {
                        // description = shortDescription + Environment.NewLine + Environment.NewLine + description,
                         //short_description = Configuration["ServiceNowTicketShortDescription"],
                         //contact_type = Configuration["ServiceNowContactType"],
@@ -115,20 +118,55 @@ namespace SNOW.Logger
                     //   sysparm_query = shortDescription,
                    //    sysparm_fields = "number,short_description,text",
                    //    sysparm_limit = "10"
-                    });
+                   // });
 
-                    streamWriter.Write(json);
-                }
+//                    streamWriter.Write(json);
+  //              }
 
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {
-                    var res = new StreamReader(response.GetResponseStream()).ReadToEnd();
+               var res = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-                    JObject joResponse = JObject.Parse(res.ToString());
-                    JObject ojObject = (JObject)joResponse["result"];
-                    string incNumber = ((JValue)ojObject.SelectToken("number")).Value.ToString();
+                      JObject joResponse = JObject.Parse(res.ToString());
+                    //     joResponse.GetValue("text");
 
-                    return incNumber;
+                    //    var fdate = JObject.Parse(res)["text"];
+
+                    //        string incNumber = joResponse.SelectToken("result").ToString();
+                    //      JObject ojObject = (JObject)joResponse["result"];
+                    //   string incNumber = ((JValue)ojObject.SelectToken("number")).Value.ToString();
+
+                    //     string incNumber= "text" ;
+                    //     return incNumber;
+
+                    //    JObject myResult = GetMyResult();
+                    //  returnObject.Id = myResult["string here"]["id"];
+                    //   var incNumber = joResponse["string here"]["id"];
+
+                    var incNumber = joResponse.SelectToken("result[0].number");
+
+               //     JsonSerializer serializer = new JsonSerializer();
+               //     JObject o = (JObject)serializer.Deserialize(joResponse);
+
+                    //   MyAccount.EmployeeID = (string)o["employeeid"][0];
+
+                    //  Console.WriteLine("t = " + obj["t"]);
+                    // Console.WriteLine("l = " + obj["l"]);
+
+                    //    JObject joResponse = JObject.Parse(res.ToString());
+
+                    //      var obj = JsonConvert.DeserializeObject<JArray>(res).ToObject<List<JObject>>().ToArray();
+                    //obj.GetValue(0);
+
+                    //      JObject ojObject = (JObject)joResponse["result"];
+                    //  string incNumber = ((JValue)ojObject.SelectToken("number")).Value.ToString();
+                    //string incNumber = "hmm";
+
+                    // dynamic jo = JObject.Parse(joResponse);
+
+                    return incNumber.ToString();
+
+
                 }
             }
             catch (Exception ex)
