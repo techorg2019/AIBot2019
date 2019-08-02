@@ -19,9 +19,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             AddDialog(new DateResolverDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
-                DestinationStepAsync,
-                OriginStepAsync,
-                TravelDateStepAsync,
+             //   DestinationStepAsync,
+              //  OriginStepAsync,
+               // TravelDateStepAsync,
                 ConfirmStepAsync,
                 FinalStepAsync,
             }));
@@ -81,7 +81,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             bookingDetails.TravelDate = (string)stepContext.Result;
 
-            var msg = $"Please confirm, I have you traveling to: {bookingDetails.Destination} from: {bookingDetails.Origin} on: {bookingDetails.TravelDate}";
+//            var msg = $"Please confirm, I have you traveling to: {bookingDetails.Destination} from: {bookingDetails.Origin} on: {bookingDetails.TravelDate}";
+            var msg = $"Are you satisfied with the input? ";
 
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
         }

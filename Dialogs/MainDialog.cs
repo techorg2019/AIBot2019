@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
@@ -29,8 +30,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
-                ActStepAsync,
-                FinalStepAsync,
+             //   ActStepAsync,
+              //  FinalStepAsync,
             }));
 
             // The initial child Dialog to run.
@@ -44,19 +45,75 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 await stepContext.Context.SendActivityAsync(
                     MessageFactory.Text("NOTE: LUIS is not configured. To enable all capabilities, add 'LuisAppId', 'LuisAPIKey' and 'LuisAPIHostName' to the appsettings.json file."), cancellationToken);
 
-               
 
 
 
-               return await stepContext.NextAsync(null, cancellationToken);
+
+                return await stepContext.NextAsync(null, cancellationToken);
             }
             else
             {
-             //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
+                //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
 
                 SNOWLogger nOWLogger = new SNOWLogger(Configuration);
-                string incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321="+stepContext.Context.Activity.Text);
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(incidentno) }, cancellationToken);
+                CoreBot.models.apiresult incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text);
+
+
+
+                string concat = "";
+
+                if (incidentno.result.Count != 0)
+                {
+
+                   
+                    for (int i = 0; i < incidentno.result.Count; i++)
+                    {
+                      concat += incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+                    }
+                }
+                else
+
+
+                {
+                    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for "+stepContext.Context.Activity.Text) }, cancellationToken);
+                }
+
+
+                if (stepContext.Context.Activity.Text.Contains("KB0"))
+                {
+                    CoreBot.models.apiresult kbresult = nOWLogger.KBSearchByNumber(stepContext.Context.Activity.Text);
+
+
+
+                    string concatkb = "";
+
+                    if (kbresult.result.Count != 0)
+                    {
+
+
+                        for (int i = 0; i < incidentno.result.Count; i++)
+                        {
+                            concatkb += kbresult.result[i].number + " : " + kbresult.result[i].short_description +"\n" +kbresult.result[i].text + "\n";
+                        }
+                    }
+                    else
+
+
+                    {
+                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text) }, cancellationToken);
+                    }
+
+                    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concatkb) }, cancellationToken);
+                  
+
+                }
+
+
+               // string concat = string.Join(" ", myList.ToArray());
+
+                //  return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(incidentno.SelectToken("result[" + i + "].number").ToString() + incidentno.SelectToken("result[" + i + "].short_description").ToString()) }, cancellationToken);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concat) }, cancellationToken);
+
             }
         }
 
@@ -89,7 +146,10 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                 var timeProperty = new TimexProperty(result.TravelDate);
                 var travelDateMsg = timeProperty.ToNaturalLanguage(DateTime.Now);
+//                var msg = $"I have you booked to {result.Destination} from {result.Origin} on {travelDateMsg}";
                 var msg = $"I have you booked to {result.Destination} from {result.Origin} on {travelDateMsg}";
+
+
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
             }
             else
