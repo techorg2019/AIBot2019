@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
 using SNOW.Logger;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace Microsoft.BotBuilderSamples.Dialogs
 {
@@ -54,32 +55,50 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             else
             {
                 //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
-
+                CoreBot.models.apiresult incidentno = null;
                 SNOWLogger nOWLogger = new SNOWLogger(Configuration);
-                CoreBot.models.apiresult incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text);
-
-
-
                 string concat = "";
-
-                if (incidentno.result.Count != 0)
+                String userinput = stepContext.Context.Activity.Text;
+                if (!(userinput.ToUpper().Contains("KB0")))
                 {
+                    incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text);
 
-                   
-                    for (int i = 0; i < incidentno.result.Count; i++)
+
+
+                    if (incidentno.result.Count != 0)
                     {
-                      concat += incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+
+
+                        for (int i = 0; i < incidentno.result.Count; i++)
+                        {
+                            concat += incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+                        }
                     }
+                    else
+
+
+                    {
+
+//                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no details found for " + stepContext.Context.Activity.Text) }, cancellationToken);
+
+                        await stepContext.Context.SendActivityAsync(
+                   MessageFactory.Text(" Sorry no detials found for: " + stepContext.Context.Activity.Text), cancellationToken);
+
+                        return await stepContext.NextAsync(null, cancellationToken);
+
+
+
+                    }
+
                 }
-                else
 
 
-                {
-                    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for "+stepContext.Context.Activity.Text) }, cancellationToken);
-                }
+               
+
+              
 
 
-                if (stepContext.Context.Activity.Text.Contains("KB0"))
+                if ((userinput.ToUpper().Contains("KB0")))
                 {
                     CoreBot.models.apiresult kbresult = nOWLogger.KBSearchByNumber(stepContext.Context.Activity.Text);
 
@@ -91,7 +110,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     {
 
 
-                        for (int i = 0; i < incidentno.result.Count; i++)
+                        for (int i = 0; i < kbresult.result.Count; i++)
                         {
                             concatkb += kbresult.result[i].number + " : " + kbresult.result[i].short_description +"\n" +kbresult.result[i].text + "\n";
                         }
@@ -100,19 +119,32 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
                     {
-                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text) }, cancellationToken);
+                        //return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text) }, cancellationToken);
+                        await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text), cancellationToken);
+
+                        return await stepContext.NextAsync(null, cancellationToken);
                     }
 
-                    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concatkb) }, cancellationToken);
-                  
+                  //  return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concatkb) }, cancellationToken);
+
+                    await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text(concatkb), cancellationToken);
+                    return await stepContext.NextAsync(null, cancellationToken);
 
                 }
 
 
-               // string concat = string.Join(" ", myList.ToArray());
+                // string concat = string.Join(" ", myList.ToArray());
 
                 //  return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(incidentno.SelectToken("result[" + i + "].number").ToString() + incidentno.SelectToken("result[" + i + "].short_description").ToString()) }, cancellationToken);
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concat) }, cancellationToken);
+               // return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concat) }, cancellationToken);
+
+
+                await stepContext.Context.SendActivityAsync(
+                MessageFactory.Text(concat), cancellationToken);
+                                                          
+                return await stepContext.NextAsync(null, cancellationToken);
 
             }
         }

@@ -244,7 +244,7 @@ namespace SNOW.Logger
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
 
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/kb_knowledge?number=" + kbnumber + "&sysparm_fields=number,short_description,text") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/kb_knowledge?number=" + kbnumber.ToUpper() + "&sysparm_fields=number,short_description,text") as HttpWebRequest;
 
                 //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=10
                 request.Headers.Add("Authorization", auth);
