@@ -82,7 +82,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 //                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no details found for " + stepContext.Context.Activity.Text) }, cancellationToken);
 
                         await stepContext.Context.SendActivityAsync(
-                   MessageFactory.Text(" Sorry no detials found for: " + stepContext.Context.Activity.Text), cancellationToken);
+                   MessageFactory.Text(" Sorry no details found for: " + stepContext.Context.Activity.Text), cancellationToken);
 
                         return await stepContext.NextAsync(null, cancellationToken);
 
