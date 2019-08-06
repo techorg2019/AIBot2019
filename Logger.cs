@@ -24,7 +24,12 @@ namespace SNOW.Logger
 
         }
 
+       
+
+
         protected readonly IConfiguration Configuration;
+      
+
         public string CreateIncidentServiceNow(string shortDescription, string description)
         {
             try
@@ -184,9 +189,9 @@ namespace SNOW.Logger
                     //     List<apiresult> apiresult = new List<apiresult>();
 
 
-                    var incNumber = joResponse.SelectToken("result[0].short_description");
-                    var incNumber1 = joResponse.SelectToken("result");
-                    int i = 10;
+                    //var incNumber = joResponse.SelectToken("result[0].short_description");
+                    //var incNumber1 = joResponse.SelectToken("result");
+                    //int i = 10;
 
 
 
