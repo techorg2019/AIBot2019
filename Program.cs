@@ -108,7 +108,7 @@ namespace Microsoft.BotBuilderSamples
                     {
 
                             Debug.WriteLine("Service now is sleeping");
-                            Trace.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
+                            Trace.WriteLine("Service now is sleeping");
                         }
 
 
