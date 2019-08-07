@@ -59,7 +59,7 @@ namespace Microsoft.BotBuilderSamples
                 // IntervalInSeconds(start_hour, start_minute, seconds)
                 DateTime now1 = DateTime.Now;
                 DateTime x1MinsLater = now1.AddMinutes(5);
-                MyScheduler.IntervalInHours(now1.Hour, x1MinsLater.Minute, 3,
+                MyScheduler.IntervalInSeconds(now1.Hour, x1MinsLater.Minute, 30,
                 () =>
                 {
                     Console.WriteLine("calling Service now");
