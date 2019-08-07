@@ -63,7 +63,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 {
                     incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text.Trim());
 
-
+                    
 
                     if (incidentno.result.Count != 0)
                     {

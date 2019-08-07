@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SNOW.Logger;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -58,15 +59,15 @@ namespace Microsoft.BotBuilderSamples
                 // This Scheduler will start at 11:10 and call after every 15 Seconds
                 // IntervalInSeconds(start_hour, start_minute, seconds)
                 DateTime now1 = DateTime.Now;
-                DateTime x1MinsLater = now1.AddMinutes(5);
+                DateTime x1MinsLater = now1.AddMinutes(1);
                 MyScheduler.IntervalInSeconds(now1.Hour, x1MinsLater.Minute, 30,
                 () =>
                 {
-                    Console.WriteLine("calling Service now");
-                    Console.WriteLine("Current Time:" + now1.Hour + ":" + now1.Minute + ":" + now1.Second);
-                    Console.WriteLine("added2Minute:" + x1MinsLater.Minute);
-                    Console.WriteLine("sec"+now1.Second);
-                    Console.WriteLine("sec+1"+now1.Second+1);
+                    Debug.WriteLine("calling Service now");
+                    Debug.WriteLine("Current Time:" + now1.Hour + ":" + now1.Minute + ":" + now1.Second);
+                    Debug.WriteLine("added5Minute:" + x1MinsLater.Minute);
+                    //Debug.WriteLine("sec"+now1.Second);
+                    //Debug.WriteLine("sec+1"+now1.Second+1);
 
                     
 
@@ -96,13 +97,13 @@ namespace Microsoft.BotBuilderSamples
                     if (rootObject.result.Count!=0)
                     {
                             DateTime now = DateTime.Now;
-                            Console.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
+                            Debug.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
                     }
                     else
 
                     {
 
-                        Console.WriteLine("Service now is sleeping");
+                            Debug.WriteLine("Service now is sleeping");
                     }
 
 
