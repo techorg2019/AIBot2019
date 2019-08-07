@@ -4,10 +4,8 @@
 using CoreBot.models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SNOW.Logger;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -66,10 +64,15 @@ namespace Microsoft.BotBuilderSamples
                     Debug.WriteLine("calling Service now");
                     Debug.WriteLine("Current Time:" + now1.Hour + ":" + now1.Minute + ":" + now1.Second);
                     Debug.WriteLine("added5Minute:" + x1MinsLater.Minute);
+
+                    
+                    Trace.WriteLine("calling Service now");
+                    Trace.WriteLine("Current Time:" + now1.Hour + ":" + now1.Minute + ":" + now1.Second);
+                    Trace.WriteLine("added5Minute:" + x1MinsLater.Minute);
                     //Debug.WriteLine("sec"+now1.Second);
                     //Debug.WriteLine("sec+1"+now1.Second+1);
 
-                    
+
 
                     // string username = Configuration["ServiceNowUserName"];
                     //string password = Configuration["ServiceNowPassword"];
@@ -98,13 +101,15 @@ namespace Microsoft.BotBuilderSamples
                     {
                             DateTime now = DateTime.Now;
                             Debug.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
-                    }
+                            Trace.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
+                        }
                     else
 
                     {
 
                             Debug.WriteLine("Service now is sleeping");
-                    }
+                            Trace.WriteLine("Service now is awaked:" + now.Hour + ":" + now.Minute + ":" + now.Second);
+                        }
 
 
                 }
