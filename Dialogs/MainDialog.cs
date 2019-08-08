@@ -61,9 +61,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 String userinput = stepContext.Context.Activity.Text;
                 if (!(userinput.ToUpper().Contains("KB0")))
                 {
-                    incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text);
+                    incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text.Trim());
 
-
+                    
 
                     if (incidentno.result.Count != 0)
                     {
@@ -82,7 +82,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 //                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no details found for " + stepContext.Context.Activity.Text) }, cancellationToken);
 
                         await stepContext.Context.SendActivityAsync(
-                   MessageFactory.Text(" Sorry no details found for: " + stepContext.Context.Activity.Text), cancellationToken);
+                   MessageFactory.Text(" Sorry no details found for: " + stepContext.Context.Activity.Text.Trim()), cancellationToken);
 
                         return await stepContext.NextAsync(null, cancellationToken);
 
@@ -100,7 +100,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                 if ((userinput.ToUpper().Contains("KB0")))
                 {
-                    CoreBot.models.apiresult kbresult = nOWLogger.KBSearchByNumber(stepContext.Context.Activity.Text);
+                    CoreBot.models.apiresult kbresult = nOWLogger.KBSearchByNumber(stepContext.Context.Activity.Text.Trim());
 
 
 
@@ -121,7 +121,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     {
                         //return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text) }, cancellationToken);
                         await stepContext.Context.SendActivityAsync(
-                    MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text), cancellationToken);
+                    MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text.Trim()), cancellationToken);
 
                         return await stepContext.NextAsync(null, cancellationToken);
                     }
