@@ -1,5 +1,5 @@
 {
-    "name": "OutLook_AI",
+    "name": "AIBot",
     "description": "",
     "services": [
         {
@@ -7,12 +7,12 @@
             "appId": "89038388-5467-4cde-ae1e-3804e4720cac",
             "appPassword": "aszvBLVUQ57(virCJ851|*[",
             "endpoint": "http://localhost:3978/api/messages",
-            "id": "65e44d20-93e7-11e9-9f4a-0f42bb192904",
+            "id": "8d596d80-b9b8-11e9-9de7-8d47301d7a74",
             "name": "http://localhost:3978/api/messages"
         }
     ],
     "padlock": "",
     "version": "2.0",
     "overrides": null,
-    "path": "D:\\Scrap\\BOT\\VW\\AIBotMigration\\AIBot2019\\OutLook_AI.bot"
+    "path": "D:\\AIBot2019\\AIBot.bot"
 }

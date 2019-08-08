@@ -22,9 +22,9 @@ namespace Microsoft.BotBuilderSamples
         {
            
 
-            Callschedule callschedule = new Callschedule();
+           // Callschedule callschedule = new Callschedule();
 
-            callschedule.Callschedulenow();
+            //callschedule.Callschedulenow();
 
 
 

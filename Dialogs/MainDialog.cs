@@ -71,7 +71,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                         for (int i = 0; i < incidentno.result.Count; i++)
                         {
-                            concat += incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+                            concat += "\n"+incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
                         }
                     }
                     else
