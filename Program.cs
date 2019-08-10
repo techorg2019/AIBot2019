@@ -21,9 +21,9 @@ namespace Microsoft.BotBuilderSamples
         {
            
 
-           // Callschedule callschedule = new Callschedule();
+           Callschedule callschedule = new Callschedule();
 
-            //callschedule.Callschedulenow();
+            callschedule.Callschedulenow();
 
 
 
@@ -58,7 +58,7 @@ namespace Microsoft.BotBuilderSamples
                 // IntervalInSeconds(start_hour, start_minute, seconds)
                 DateTime now1 = DateTime.Now;
                 DateTime x1MinsLater = now1.AddMinutes(1);
-                MyScheduler.IntervalInSeconds(now1.Hour, x1MinsLater.Minute, 30,
+                MyScheduler.IntervalInSeconds(now1.Hour, x1MinsLater.Minute, 55,
                 () =>
                 {
                     Debug.WriteLine("calling Service now");
