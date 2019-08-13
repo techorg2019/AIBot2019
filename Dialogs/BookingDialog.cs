@@ -78,7 +78,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             if (bookingDetails.Priority == null)
             {
 
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: 1. High  \n 2.Medium  \n 3.Low ") }, cancellationToken);
+                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: \n 1. High  \n 2.Medium  \n 3.Low ") }, cancellationToken);
             }
             else
                 {
