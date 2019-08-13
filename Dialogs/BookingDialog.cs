@@ -116,7 +116,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                    
 
                     await stepContext.Context.SendActivityAsync(
-                  MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc,null,null));
+                  MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
                 }
              //   stepContext = null;
                 return await stepContext.EndDialogAsync(null, cancellationToken);
@@ -124,8 +124,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             else
             {
                 await stepContext.Context.SendActivityAsync(
-                  MessageFactory.Text("Incient creation aborted !", null, null));
-                stepContext = null;
+                  MessageFactory.Text("Incient creation aborted ! \n is there anything I can help you with ? ", null, null));
+               // stepContext = null;
                 return await stepContext.EndDialogAsync(null, cancellationToken);
             }
         }
