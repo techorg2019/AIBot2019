@@ -30,15 +30,15 @@ namespace SNOW.Logger
         protected readonly IConfiguration Configuration;
       
 
-        public string CreateIncidentServiceNow(string shortDescription, string description)
+        public string CreateIncidentServiceNow(string shortDescription, string description, string incpriority)
         {
             try
             {
 
-                string username = Configuration["ServiceNowUserName"];
+                string username = "admin"; //Configuration["ServiceNowUserName"];
 
-                string password = Configuration["ServiceNowPassword"];
-                string url = Configuration["ServiceNowUrl"];
+                string password = "Passw0rd!"; // Configuration["ServiceNowPassword"];
+                string url = "https://dev84141.service-now.com/api/now/table/"; // Configuration["ServiceNowUrl"];
 
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
@@ -51,16 +51,16 @@ namespace SNOW.Logger
                     string json = JsonConvert.SerializeObject(new
                     {
                         description = shortDescription + Environment.NewLine + Environment.NewLine + description,
-                        short_description = Configuration["ServiceNowTicketShortDescription"],
-                        contact_type = Configuration["ServiceNowContactType"],
-                        category = Configuration["ServiceNowCategory"],
-                        subcategory = Configuration["ServiceNowSubCategory"],
-                        assignment_group = Configuration["ServiceNowAssignmentGroup"],
-                        impact = Configuration["ServiceNowIncidentImpact"],
-                        priority = Configuration["ServiceNowIncidentPriority"],
-                        caller_id = Configuration["ServiceNowCallerId"],
-                        cmdb_ci = Configuration["ServiceNowCatalogueName"],
-                        comments = Configuration["ServiceNowTicketShortDescription"]
+                        short_description = description, //Configuration["ServiceNowTicketShortDescription"],
+                       // contact_type = Configuration["ServiceNowContactType"],
+                       // category = Configuration["ServiceNowCategory"],
+                        //subcategory = Configuration["ServiceNowSubCategory"],
+                        //assignment_group = Configuration["ServiceNowAssignmentGroup"],
+                        //impact = Configuration["ServiceNowIncidentImpact"],
+                        priority = incpriority//Configuration["ServiceNowIncidentPriority"],
+                        //caller_id = Configuration["ServiceNowCallerId"],
+                        //cmdb_ci = Configuration["ServiceNowCatalogueName"],
+                        //comments = Configuration["ServiceNowTicketShortDescription"]
 
 
                     });

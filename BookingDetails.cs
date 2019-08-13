@@ -10,5 +10,14 @@ namespace Microsoft.BotBuilderSamples
         public string Origin { get; set; }
 
         public string TravelDate { get; set; }
+
+        public string Short_desc { get; set; }
+
+        public string Descrip { get; set; }
+
+        public string Priority { get; set; }
+        public string Create_incident { get; set; }
+
+        public string None { get; set; }
     }
 }
