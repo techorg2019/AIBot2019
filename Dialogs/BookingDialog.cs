@@ -92,7 +92,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             bookingDetails.Priority = (string)stepContext.Result;
 
-            var msg = $"Please confirm incident detail:\n Title: {bookingDetails.Short_desc} Description: {bookingDetails.Descrip} Priority {bookingDetails.Priority}";
+            var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority {bookingDetails.Priority}";
        //     var msg = $"Are you satisfied with the input? ";
 
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
