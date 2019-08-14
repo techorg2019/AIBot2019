@@ -51,10 +51,11 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         return new DialogTurnResult(DialogTurnStatus.Waiting);
 
                     case "cancel":
+                    case "restart":
                     case "quit":
                         await innerDc.Context.SendActivityAsync($"Cancelling", cancellationToken: cancellationToken);
                         return await innerDc.CancelAllDialogsAsync();
-                }
+                                     }
             }
 
             return null;

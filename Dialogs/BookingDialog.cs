@@ -1,10 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
@@ -24,6 +26,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
             AddDialog(new DateResolverDialog());
+            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
               DestinationStepAsync,
@@ -78,7 +81,16 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             if (bookingDetails.Priority == null)
             {
 
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: \n 1. High  \n 2.Medium  \n 3.Low ") }, cancellationToken);
+                return await stepContext.PromptAsync(nameof(ChoicePrompt),
+        new PromptOptions
+        {
+            Prompt = MessageFactory.Text("Please enter incident priority."),
+            Choices = ChoiceFactory.ToChoices(new List<string> { "High", "Medium", "Low" }),
+        }, cancellationToken);
+
+
+
+            //    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: \n 1. High \n 2.Medium \n 3.Low ") }, cancellationToken);
             }
             else
                 {
@@ -90,9 +102,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
         {
             var bookingDetails = (BookingDetails)stepContext.Options;
 
-            bookingDetails.Priority = (string)stepContext.Result;
+            bookingDetails.Priority = (string)stepContext.Context.Activity.Text;
 
-            var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority {bookingDetails.Priority}";
+            var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
        //     var msg = $"Are you satisfied with the input? ";
 
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
@@ -106,7 +118,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                 SNOWLogger nOWLogger1 = new SNOWLogger(Configuration);
 
-                string incident1 = nOWLogger1.CreateIncidentServiceNow(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.Priority);
+                string incident1 = nOWLogger1.CreateIncidentServiceNow(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.GetPrioritycode(bookingDetails.Priority) );
 
 
                 if (incident1 != null)
@@ -117,9 +129,11 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                     await stepContext.Context.SendActivityAsync(
                   MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
+                    return await stepContext.EndDialogAsync(null, cancellationToken);
                 }
-             //   stepContext = null;
-                return await stepContext.EndDialogAsync(null, cancellationToken);
+                //   stepContext = null;
+                return await stepContext.CancelAllDialogsAsync();
+               // return await stepContext.EndDialogAsync(null, cancellationToken);
             }
             else
             {

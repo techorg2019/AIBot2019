@@ -28,6 +28,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new BookingDialog());
+            AddDialog(new IncDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -48,7 +49,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 await stepContext.Context.SendActivityAsync(
                     MessageFactory.Text("NOTE: LUIS is not configured. To enable all capabilities, add 'LuisAppId', 'LuisAPIKey' and 'LuisAPIHostName' to the appsettings.json file."), cancellationToken);
 
-                                             
+
                 return await stepContext.NextAsync(null, cancellationToken);
             }
             else
@@ -65,7 +66,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 //await stepContext.Context.SendActivityAsync(
                 //  MessageFactory.Text("Incident Created..!"), cancellationToken);
                 //return await stepContext.EndDialogAsync(null, cancellationToken);
-               //  return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+                //  return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
 
 
 
@@ -82,41 +83,47 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     {
                         incidentno = nOWLogger.KBSearchServiceNow("GOTO123TEXTQUERY321=" + stepContext.Context.Activity.Text.Trim());
 
-
-
-                        if (incidentno.result.Count != 0)
+                        if (incidentno.result != null)
                         {
 
-
-                            for (int i = 0; i < incidentno.result.Count; i++)
+                            if (incidentno.result.Count != 0)
                             {
-                                concat += "\n" + incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+
+
+                                for (int i = 0; i < incidentno.result.Count; i++)
+                                {
+                                    concat += "\n" + incidentno.result[i].number + " : " + incidentno.result[i].short_description + "\n";
+                                }
+
+
+                                await stepContext.Context.SendActivityAsync(
+                        MessageFactory.Text(concat), cancellationToken);
+
                             }
+                            else
 
 
-                            await stepContext.Context.SendActivityAsync(
-                    MessageFactory.Text(concat), cancellationToken);
+                            {
+                                //                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no details found for " + stepContext.Context.Activity.Text) }, cancellationToken);
+
+                                await stepContext.Context.SendActivityAsync(
+                                MessageFactory.Text(" Sorry no details found for: " + stepContext.Context.Activity.Text.Trim()), cancellationToken);
+
+                                return await stepContext.EndDialogAsync(null, cancellationToken);
+
+
+                            }
 
                         }
                         else
-
-
                         {
-
-                            //                        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(" Sorry no details found for " + stepContext.Context.Activity.Text) }, cancellationToken);
-
                             await stepContext.Context.SendActivityAsync(
-                            MessageFactory.Text(" Sorry no details found for: " + stepContext.Context.Activity.Text.Trim()), cancellationToken);
+                          MessageFactory.Text(" Sorry no details found"), cancellationToken);
 
-                            return await stepContext.NextAsync(null, cancellationToken);
-
-
-
+                            return await stepContext.EndDialogAsync(null, cancellationToken);
                         }
 
                     }
-
-
 
 
 
@@ -130,20 +137,23 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     // return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text(concat) }, cancellationToken);
 
 
+                    stepContext.Context.TurnState.Add("incID", bookingDetails);
 
-
-                    return await stepContext.NextAsync(stepContext, cancellationToken);
-                }
-                else
-                {
-
-                    return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+                    return await stepContext.NextAsync(bookingDetails, cancellationToken);
                 }
                 
+                else
+                {
+                    stepContext.Context.TurnState.Add("incID", bookingDetails);
+
+                    return await stepContext.NextAsync(bookingDetails, cancellationToken);
+
+                }
+
+
             }
+
         }
-
-
 
         private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -155,6 +165,10 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             // CoreBot.models.apiresult incidentno = null;
             SNOWLogger nOWLogger = new SNOWLogger(Configuration);
             String userinput = stepContext.Context.Activity.Text.Trim();
+            //  var bookingDetails = (BookingDetails)stepContext.Options;
+
+            var bookingDetails = (BookingDetails)stepContext.Context.TurnState["incID"];
+
 
             if ((userinput.ToUpper().Contains("KB0")))
             {
@@ -182,7 +196,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 MessageFactory.Text(" Sorry no detials found for KB No: " + stepContext.Context.Activity.Text.Trim()), cancellationToken);
 
 
-
+                   //await stepContext.EndDialogAsync(null, cancellationToken);
 
                     // return await stepContext.NextAsync(null, cancellationToken);
                 }
@@ -202,11 +216,37 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
 
 
+            }else                                                    
+
+            if (bookingDetails.Incident_status.Equals("true"))
+            {
+                bookingDetails.Incident_status = "false";
+
+              //  SNOWLogger nOWLoggerforinc = new SNOWLogger(Configuration);
+
+
+
+
+
+                // string concat = "";
+                if (bookingDetails != null)
+                {
+                    return await stepContext.BeginDialogAsync(nameof(IncDialog), bookingDetails, cancellationToken);
+
+                }
+                
+
+               
+                return await stepContext.NextAsync(stepContext, cancellationToken);
+                // return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+
             }
 
 
+            
 
-              return await stepContext.NextAsync(stepContext, cancellationToken);
+
+            return await stepContext.NextAsync(stepContext, cancellationToken);
 
 
 
@@ -218,29 +258,47 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             if (!(stepContext.Context.Activity.Text.Trim().ToUpper().Contains("KB0")))
             {
-                if (stepContext.Result.Equals(true) && (!(stepContext.Result.Equals(null))))
+
+                if (stepContext.Result != null)
+               {
+
+                    if (stepContext.Result.Equals(true))
+                    {
+                        // var bookingDetails = (BookingDetails)stepContext.Options;
+
+                        //return await stepContext.EndDialogAsync(bookingDetails, cancellationToken);
+                        await stepContext.Context.SendActivityAsync(
+                            MessageFactory.Text("Please enter any other query."), cancellationToken);
+
+                        // return await stepContext.EndDialogAsync(null, cancellationToken);
+                        return await stepContext.NextAsync(null, cancellationToken);
+
+                    }
+
+                    else if (stepContext.Result.Equals(false))
+                    {
+                        var bookingDetails = stepContext.Result != null
+                       ?
+                   await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
+                       :
+                   new BookingDetails();
+
+                        //await stepContext.Context.SendActivityAsync(
+                        //  MessageFactory.Text("Incident Created..!"), cancellationToken);
+                        //return await stepContext.EndDialogAsync(null, cancellationToken);
+                        return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+                    }
+                    else {
+                        return await stepContext.EndDialogAsync(null, cancellationToken);
+
+                    }
+
+
+
+                } else
                 {
-                    // var bookingDetails = (BookingDetails)stepContext.Options;
-
-                    //return await stepContext.EndDialogAsync(bookingDetails, cancellationToken);
-                    await stepContext.Context.SendActivityAsync(
-                        MessageFactory.Text("Please enter any other query."), cancellationToken);
-
                     return await stepContext.EndDialogAsync(null, cancellationToken);
 
-                }
-                else if (stepContext.Result.Equals(false) && (!(stepContext.Result.Equals(null))))
-                {
-                    var bookingDetails = stepContext.Result != null
-                   ?
-               await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
-                   :
-               new BookingDetails();
-
-                    //await stepContext.Context.SendActivityAsync(
-                    //  MessageFactory.Text("Incident Created..!"), cancellationToken);
-                    //return await stepContext.EndDialogAsync(null, cancellationToken);
-                    return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
                 }
 
             }
