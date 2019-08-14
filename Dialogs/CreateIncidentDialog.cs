@@ -98,14 +98,14 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                             return await stepContext.EndDialogAsync(null, cancellationToken);
                         }else
                         {
-                            if (incident_Api_Result == null)
+                            if (incident_Api_Result.Result.Count == 0)
                             {
                                 await stepContext.Context.SendActivityAsync(
                           MessageFactory.Text(" Incident is not yet updated by team"), cancellationToken);
 
                                 return await stepContext.EndDialogAsync(null, cancellationToken);
                             }
-                            else if (apiresult == null)
+                            else if (apiresult.result.Count == 0)
                             {
                                 await stepContext.Context.SendActivityAsync(
                           MessageFactory.Text("No Incident update Found:"), cancellationToken);
