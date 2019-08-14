@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Bot.Schema;
+using CoreBot.Cards;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
@@ -94,7 +96,21 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                             }
 
 
-                            await stepContext.Context.SendActivityAsync(MessageFactory.Text(concat), cancellationToken);
+                            // Cards are sent as Attachments in the Bot Framework.
+                            // So we need to create a list of attachments for the reply activity.
+                            var attachments = new List<Attachment>();
+
+                            // Reply to the activity we received with an activity.
+                            var reply = MessageFactory.Attachment(attachments);
+
+                            reply.Attachments.Add(Cards.GetHeroCardforStatus(apiresult.result[0].number, apiresult.result[0].short_description, incident_Api_Result.Result[0].value).ToAttachment());
+
+                            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+
+
+
+
+                            //await stepContext.Context.SendActivityAsync(MessageFactory.Text(concat), cancellationToken);
                             return await stepContext.EndDialogAsync(null, cancellationToken);
                         }else
                         {

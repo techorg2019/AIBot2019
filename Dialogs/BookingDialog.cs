@@ -4,9 +4,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreBot.Cards;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
+using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
@@ -125,10 +127,23 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 {
 
 
-                   
+                    // Cards are sent as Attachments in the Bot Framework.
+                    // So we need to create a list of attachments for the reply activity.
+                    var attachments = new List<Attachment>();
 
-                    await stepContext.Context.SendActivityAsync(
-                  MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
+                    // Reply to the activity we received with an activity.
+                    var reply = MessageFactory.Attachment(attachments);
+
+                    reply.Attachments.Add(Cards.GetHeroCard(incident1, bookingDetails.Short_desc,bookingDetails.Descrip).ToAttachment());
+
+                    await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+
+
+
+
+
+                  //  await stepContext.Context.SendActivityAsync(
+                  //MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
                     stepContext.Context.TurnState.Add("incID", bookingDetails);
 
                     return await stepContext.EndDialogAsync(bookingDetails, cancellationToken);
@@ -151,5 +166,12 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             var timexProperty = new TimexProperty(timex);
             return !timexProperty.Types.Contains(Constants.TimexTypes.Definite);
         }
-    }
+
+
+
+
+
+
+           }
+
 }
