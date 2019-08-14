@@ -30,8 +30,8 @@ namespace CoreBot.Cards
             var heroCard = new HeroCard
             {
                 Title = "INCIDENT: " +incident.ToString()+ " created successfully",
-                Subtitle = "" + booking.ToString() + "",
-                Text = "" + desc.ToString() + "",
+                Subtitle = "Title: " + booking.ToString() + "",
+                Text = "Details: " + desc.ToString() + "",
                 Images = new List<CardImage> { new CardImage("https://previews.123rf.com/images/julos/julos1607/julos160747433/81259316-cartoon-robot-with-books-showing-thumbs-up.jpg") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
