@@ -58,7 +58,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
         private async Task<DialogTurnResult> OriginStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var bookingDetails = (BookingDetails)stepContext.Options;
-            if ((BookingDetails)stepContext.Options == null)
+            if (((BookingDetails)stepContext.Options).Incident_No == null)
             {
                 bookingDetails.Incident_No = (string)stepContext.Result;
             }
@@ -86,17 +86,35 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                     if (incident_Api_Result != null && apiresult != null)
                     {
-
-
-                        for (int i = 0; i < incident_Api_Result.Result.Count; i++)
+                        if (incident_Api_Result.Result.Count != 0 && apiresult.result.Count != 0)
                         {
-                            concat += " \n " + apiresult.result[i].number + ":" + apiresult.result[i].short_description + " \n Status: " + incident_Api_Result.Result[i].value + " \n Active:" + apiresult.result[i].active;
+                            for (int i = 0; i < incident_Api_Result.Result.Count; i++)
+                            {
+                                concat += " \n " + apiresult.result[i].number + ":" + apiresult.result[i].short_description + " \n Status: " + incident_Api_Result.Result[i].value + " \n Active:" + apiresult.result[i].active;
+                            }
+
+
+                            await stepContext.Context.SendActivityAsync(MessageFactory.Text(concat), cancellationToken);
+                            return await stepContext.EndDialogAsync(null, cancellationToken);
+                        }else
+                        {
+                            if (incident_Api_Result == null)
+                            {
+                                await stepContext.Context.SendActivityAsync(
+                          MessageFactory.Text(" Incident is not yet updated by team"), cancellationToken);
+
+                                return await stepContext.EndDialogAsync(null, cancellationToken);
+                            }
+                            else if (apiresult == null)
+                            {
+                                await stepContext.Context.SendActivityAsync(
+                          MessageFactory.Text("No Incident update Found:"), cancellationToken);
+
+                                return await stepContext.EndDialogAsync(null, cancellationToken);
+
+                            }
+                            }
                         }
-
-
-                        await stepContext.Context.SendActivityAsync(MessageFactory.Text(concat), cancellationToken);
-                        return await stepContext.EndDialogAsync(null, cancellationToken);
-                    }
                     else
                     {
 

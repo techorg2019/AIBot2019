@@ -70,9 +70,25 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-                //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
+                    //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
 
-                if (bookingDetails.None.Equals("true"))
+
+                 if (bookingDetails.Create_incident.Equals("true"))
+                {
+                    //     var bookingDetails = stepContext.Result != null
+                    //    ?
+                    //await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
+                    //    :
+                    //new BookingDetails();
+
+                    //await stepContext.Context.SendActivityAsync(
+                    //  MessageFactory.Text("Incident Created..!"), cancellationToken);
+                    //return await stepContext.EndDialogAsync(null, cancellationToken);
+
+                    return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
+
+
+                } else  if (bookingDetails.None.Equals("true"))
                 {
                     bookingDetails.None = "false";
                     CoreBot.models.apiresult incidentno = null;
@@ -256,7 +272,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
-            if (!(stepContext.Context.Activity.Text.Trim().ToUpper().Contains("KB0")))
+                if (!(stepContext.Context.Activity.Text.Trim().ToUpper().Contains("KB0")))
             {
 
                 if (stepContext.Result != null)
@@ -287,7 +303,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                         //  MessageFactory.Text("Incident Created..!"), cancellationToken);
                         //return await stepContext.EndDialogAsync(null, cancellationToken);
                         return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
-                    }
+                    } 
                     else {
                         return await stepContext.EndDialogAsync(null, cancellationToken);
 

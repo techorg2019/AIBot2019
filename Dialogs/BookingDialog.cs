@@ -129,7 +129,9 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                     await stepContext.Context.SendActivityAsync(
                   MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
-                    return await stepContext.EndDialogAsync(null, cancellationToken);
+                    stepContext.Context.TurnState.Add("incID", bookingDetails);
+
+                    return await stepContext.EndDialogAsync(bookingDetails, cancellationToken);
                 }
                 //   stepContext = null;
                 return await stepContext.CancelAllDialogsAsync();
