@@ -107,7 +107,19 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             bookingDetails.Priority = (string)stepContext.Context.Activity.Text;
 
             var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
-       //     var msg = $"Are you satisfied with the input? ";
+            //     var msg = $"Are you satisfied with the input? ";
+
+            var attachments = new List<Attachment>();
+
+            // Reply to the activity we received with an activity.
+            var reply = MessageFactory.Attachment(attachments);
+
+            reply.Attachments.Add(Cards.GetHeroCardConfirm(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.Priority).ToAttachment());
+
+            await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+
+
+
 
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
         }
@@ -134,7 +146,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     // Reply to the activity we received with an activity.
                     var reply = MessageFactory.Attachment(attachments);
 
-                    reply.Attachments.Add(Cards.GetHeroCard(incident1, bookingDetails.Short_desc,bookingDetails.Descrip).ToAttachment());
+                    reply.Attachments.Add(Cards.GetHeroCard(incident1, bookingDetails.Short_desc,bookingDetails.Descrip,bookingDetails.Priority).ToAttachment());
 
                     await stepContext.Context.SendActivityAsync(reply, cancellationToken);
 

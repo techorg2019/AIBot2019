@@ -25,15 +25,30 @@ namespace CoreBot.Cards
             return adaptiveCardAttachment;
         }
 
-        public static HeroCard GetHeroCard(object incident,object booking,object desc )
+        public static HeroCard GetHeroCard(object incident,object booking,object desc,object priority )
         {
             var heroCard = new HeroCard
             {
                 Title = "INCIDENT: " +incident.ToString()+ " created successfully",
                 Subtitle = "Title: " + booking.ToString() + "",
-                Text = "Details: " + desc.ToString() + "",
-                Images = new List<CardImage> { new CardImage("https://previews.123rf.com/images/julos/julos1607/julos160747433/81259316-cartoon-robot-with-books-showing-thumbs-up.jpg") },
+                Text = "Details: " + desc.ToString() + " with "+ "Priority: "+ priority,
+                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
+            };
+
+            return heroCard;
+        }
+
+
+        public static HeroCard GetHeroCardConfirm( object booking, object desc, object priority)
+        {
+            var heroCard = new HeroCard
+            {
+                Title = "Incident Title: " + booking.ToString() + "",
+                Subtitle = "Description: " + desc.ToString() + "",
+                Text = "Priority: " + priority.ToString() + "",
+                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Press \"Yes\" to Confirm", value: "#") },
             };
 
             return heroCard;
@@ -47,7 +62,7 @@ namespace CoreBot.Cards
                 Title = "INCIDENT NO: " + incident.ToString() ,
                 Subtitle = "" + booking.ToString() + "",
                 Text = "Status update from Team: " + desc.ToString() + "",
-                Images = new List<CardImage> { new CardImage("https://previews.123rf.com/images/julos/julos1607/julos160747433/81259316-cartoon-robot-with-books-showing-thumbs-up.jpg") },
+                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
 
