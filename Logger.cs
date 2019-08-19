@@ -39,7 +39,7 @@ namespace SNOW.Logger
 
                 string password = "Passw0rd!"; // Configuration["ServiceNowPassword"];
                 string url = "https://dev84141.service-now.com/api/now/table/"; // Configuration["ServiceNowUrl"];
-
+                string callerid = "anirudharpatil@gmail.com";
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
                 HttpWebRequest request = WebRequest.Create(url + "incident") as HttpWebRequest;
@@ -57,8 +57,8 @@ namespace SNOW.Logger
                                                          //subcategory = Configuration["ServiceNowSubCategory"],
                                                          //assignment_group = Configuration["ServiceNowAssignmentGroup"],
                         impact = incpriority, //["ServiceNowIncidentImpact"],
-                        priority = incpriority//Configuration["ServiceNowIncidentPriority"],
-                        //caller_id = Configuration["ServiceNowCallerId"],
+                        priority = incpriority,//Configuration["ServiceNowIncidentPriority"],
+                        caller_id = callerid
                         //cmdb_ci = Configuration["ServiceNowCatalogueName"],
                         //comments = Configuration["ServiceNowTicketShortDescription"]
 
