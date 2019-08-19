@@ -57,8 +57,8 @@ namespace SNOW.Logger
                                                          //subcategory = Configuration["ServiceNowSubCategory"],
                                                          //assignment_group = Configuration["ServiceNowAssignmentGroup"],
                         impact = incpriority, //["ServiceNowIncidentImpact"],
-                        priority = incpriority//Configuration["ServiceNowIncidentPriority"],
-                        //caller_id = Configuration["ServiceNowCallerId"],
+                        priority = incpriority,//Configuration["ServiceNowIncidentPriority"],
+                        caller_id = "anirudharpatil@gmail.com"//Configuration["ServiceNowCallerId"],
                         //cmdb_ci = Configuration["ServiceNowCatalogueName"],
                         //comments = Configuration["ServiceNowTicketShortDescription"]
 
