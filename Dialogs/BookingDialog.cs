@@ -108,7 +108,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             //   var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
             //     var msg = $"Are you satisfied with the input? ";
-            var msg = "Please Confirm.";
+            string msg = "Please Confirm.";
 
             var attachments = new List<Attachment>();
 

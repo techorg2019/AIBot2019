@@ -137,7 +137,7 @@ namespace Microsoft.BotBuilderSamples.Bots
             // Retrieve LUIS results for Weather.
             // var result = luisResult.ConnectedServiceResult;
             var topIntent = recognizerResult.GetTopScoringIntent();
-            await turnContext.SendActivityAsync(MessageFactory.Text($"ProcessAIConBot intent for SNOW KB."), cancellationToken);
+            await turnContext.SendActivityAsync(MessageFactory.Text($"SNOW"), cancellationToken);
             //await turnContext.SendActivityAsync(MessageFactory.Text($"ProcessAIConBot Intents detected::\n\n{string.Join("\n\n", luisResult.Intents.Select(i => i.Intent))}"), cancellationToken);
             if (topIntent.intent.Length > 0)
             {
@@ -159,7 +159,7 @@ namespace Microsoft.BotBuilderSamples.Bots
             var results = await _botServices.SampleQnA.GetAnswersAsync(turnContext);
             if (results.Any())
             {
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Answer from QnA KB."), cancellationToken);
+                await turnContext.SendActivityAsync(MessageFactory.Text($"QnA"), cancellationToken);
                 await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
             }
             else
