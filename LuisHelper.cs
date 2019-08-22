@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
 using Microsoft.BotBuilderSamples.Dialogs;
@@ -15,17 +16,22 @@ namespace Microsoft.BotBuilderSamples
 {
     public static class LuisHelper
     {
-        public static async Task<BookingDetails> ExecuteLuisQuery(IConfiguration configuration, ILogger logger, ITurnContext turnContext, CancellationToken cancellationToken)
+     //   public static object RecognizerResult { get; private set; }
+
+        public static async Task<BookingDetails> ExecuteLuisQuery(IConfiguration configuration, ILogger logger, ITurnContext turnContext, /*RecognizerResult luisresult,*/ CancellationToken cancellationToken)
         {
             var bookingDetails = new BookingDetails();
+
+          //  RecognizerResult = luisresult;
 
             try
             {
                 // Create the LUIS settings from configuration.
                 var luisApplication = new LuisApplication(
-                    configuration["LuisAppId"],
+                    configuration["LuisAppIdForSnow"],
                     configuration["LuisAPIKey"],
-                    "https://" + configuration["LuisAPIHostName"]
+                    "https://" + configuration["LuisAPIHostNameforiter"]
+                  // $"https://{configuration["LuisAPIHostName"]}.api.cognitive.microsoft.com"))
                 );
 
                 var recognizer = new LuisRecognizer(luisApplication);
@@ -33,7 +39,12 @@ namespace Microsoft.BotBuilderSamples
                 // The actual call to LUIS
                 var recognizerResult = await recognizer.RecognizeAsync(turnContext, cancellationToken);
 
-                var (intent, score) = recognizerResult.GetTopScoringIntent();
+
+              //  var intent = luisresult.GetTopScoringIntent();
+
+                //  var (intent, score) = luisresult.GetTopScoringIntent();
+
+                 var (intent, score) = recognizerResult.GetTopScoringIntent();
                 if (intent == "Book_flight")
                 {
                     // We need to get the result from the LUIS JSON which at every level returns an array.

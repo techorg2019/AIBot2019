@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Extensions.Configuration;
@@ -20,11 +21,14 @@ namespace Microsoft.BotBuilderSamples.Dialogs
         protected readonly IConfiguration Configuration;
         protected readonly ILogger Logger;
 
-        public MainDialog(IConfiguration configuration, ILogger<MainDialog> logger)
+     //   public RecognizerResult Recognizerresult { get; }
+
+        public MainDialog(IConfiguration configuration, ILogger<MainDialog> logger/*, RecognizerResult luisresult*/)
             : base(nameof(MainDialog))
         {
             Configuration = configuration;
             Logger = logger;
+           // Recognizerresult = luisresult;
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new BookingDialog());
@@ -59,7 +63,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
                 var bookingDetails = stepContext.Result == null
                   ?
-              await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
+              await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, /*Recognizerresult,*/ cancellationToken)
                   :
               new BookingDetails();
 
@@ -70,8 +74,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-                    //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
-
+                //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
+             
 
                  if (bookingDetails.Create_incident.Equals("true"))
                 {
@@ -298,7 +302,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     {
                         var bookingDetails = stepContext.Result != null
                        ?
-                   await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
+                   await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context,/* Recognizerresult,*/ cancellationToken)
                        :
                    new BookingDetails();
 
