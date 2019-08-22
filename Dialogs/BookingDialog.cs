@@ -106,7 +106,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             bookingDetails.Priority = (string)stepContext.Context.Activity.Text;
 
-            var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
+            //var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
             //     var msg = $"Are you satisfied with the input? ";
 
             var attachments = new List<Attachment>();
@@ -121,7 +121,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text(msg) }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Confirm.","Confirmation","Confirmation") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
