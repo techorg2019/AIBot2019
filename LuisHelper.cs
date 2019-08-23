@@ -22,6 +22,7 @@ namespace Microsoft.BotBuilderSamples
         {
             var bookingDetails = new BookingDetails();
 
+
           //  RecognizerResult = luisresult;
 
             try
@@ -30,9 +31,13 @@ namespace Microsoft.BotBuilderSamples
                 var luisApplication = new LuisApplication(
                     configuration["LuisAppIdForSnow"],
                     configuration["LuisAPIKey"],
-                    "https://" + configuration["LuisAPIHostNameforiter"]
+                    configuration["LuisAPIHostNameforiter"]
                   // $"https://{configuration["LuisAPIHostName"]}.api.cognitive.microsoft.com"))
                 );
+
+
+
+
 
                 var recognizer = new LuisRecognizer(luisApplication);
 
