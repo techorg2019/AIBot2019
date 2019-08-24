@@ -32,7 +32,7 @@ namespace CoreBot.Cards
                 Title = "INCIDENT: " +incident.ToString()+ " created successfully",
                 Subtitle = "Title: " + booking.ToString() + "",
                 Text = "Details: " + desc.ToString() + " with "+ "Priority: "+ priority,
-                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
 
@@ -47,7 +47,7 @@ namespace CoreBot.Cards
                 Title = "Incident Title: " + booking.ToString() + "",
                 Subtitle = "Description: " + desc.ToString() + "",
                 Text = "Priority: " + priority.ToString() + "",
-                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Press \"Yes\" to Confirm", value: "#") },
             };
 
@@ -62,7 +62,7 @@ namespace CoreBot.Cards
                 Title = "INCIDENT NO: " + incident.ToString() ,
                 Subtitle = "" + booking.ToString() + "",
                 Text = "Status update from Team: " + desc.ToString() + "",
-                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
 
@@ -78,7 +78,7 @@ namespace CoreBot.Cards
                 Subtitle = "Microsoft Bot Framework",
                 Text = "Build and connect intelligent bots to interact with your users naturally wherever they are," +
                        " from text/sms to Skype, Slack, Office 365 mail and other popular services.",
-                Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Get Started", value: "https://docs.microsoft.com/bot-framework") },
             };
 
@@ -97,12 +97,12 @@ namespace CoreBot.Cards
                         "Data Transfer",
                         price: "$ 38.45",
                         quantity: "368",
-                        image: new CardImage(url: "https://github.com/amido/azure-vector-icons/raw/master/renders/traffic-manager.png")),
+                        image: new CardImage(url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA")),
                     new ReceiptItem(
                         "App Service",
                         price: "$ 45.00",
                         quantity: "720",
-                        image: new CardImage(url: "https://github.com/amido/azure-vector-icons/raw/master/renders/cloud-service.png")),
+                        image: new CardImage(url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA")),
                 },
                 Tax = "$ 7.50",
                 Total = "$ 90.95",
@@ -111,7 +111,7 @@ namespace CoreBot.Cards
                     new CardAction(
                         ActionTypes.OpenUrl,
                         "More information",
-                        "https://account.windowsazure.com/content/6.10.1.38-.8225.160809-1618/aux-pre/images/offer-icon-freetrial.png",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA",
                         value: "https://azure.microsoft.com/en-us/pricing/"),
                 },
             };
