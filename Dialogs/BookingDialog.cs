@@ -169,6 +169,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 await stepContext.Context.SendActivityAsync(
                   MessageFactory.Text("Incient creation aborted ! \n is there anything I can help you with ? ", null, null));
                // stepContext = null;
+
+
                 return await stepContext.EndDialogAsync(null, cancellationToken);
             }
         }
