@@ -121,7 +121,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Confirm.","Confirmation","Confirmation") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("please confirm if I can create this incident?", "Confirmation","Confirmation") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
