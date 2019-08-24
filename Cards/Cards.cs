@@ -29,9 +29,9 @@ namespace CoreBot.Cards
         {
             var heroCard = new HeroCard
             {
-                Title = "INCIDENT: " +incident.ToString()+ " created successfully",
-                Subtitle = "Title: " + booking.ToString() + "",
-                Text = "Details: " + desc.ToString() + " with "+ "Priority: "+ priority,
+                Title = "<B><font color=#FF6A4A>INCIDENT: </font></B> " + incident.ToString()+ " created <b><font color=\"#11b92f\">successfully</font></b>",
+                Subtitle = "<B><font color=#FF6A4A>Title: </font></B> " + booking.ToString() + "",
+                Text = "<B><font color=#FF6A4A></font><B>Details: </font></B>" + desc.ToString() + " with "+ "Priority: "+ priority,
                 Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
@@ -44,9 +44,9 @@ namespace CoreBot.Cards
         {
             var heroCard = new HeroCard
             {
-                Title = "Incident Title: " + booking.ToString() + "",
-                Subtitle = "Description: " + desc.ToString() + "",
-                Text = "Priority: " + priority.ToString() + "",
+                Title = "<B><font color=#FF6A4A>Incident Title: </font></B>" + booking.ToString() + "",
+                Subtitle = "<B><font color=#FF6A4A>Description: </font></B>" + desc.ToString() + "",
+                Text = "<B><font color=#FF6A4A>Priority: </font></B>" + priority.ToString() + "",
                 Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Press \"Yes\" to Confirm", value: "#") },
             };
@@ -59,9 +59,9 @@ namespace CoreBot.Cards
         {
             var heroCard = new HeroCard
             {
-                Title = "INCIDENT NO: " + incident.ToString() ,
-                Subtitle = "" + booking.ToString() + "",
-                Text = "Status update from Team: " + desc.ToString() + "",
+                Title = "<B><font color=#FF6A4A>INCIDENT NO: </font></B>" + incident.ToString() ,
+                Subtitle = "<B><font color=#FF6A4A>" + booking.ToString() + "</font></B>",
+                Text = "<B><font color=#FF6A4A>Status update from Team: </font></B>" + desc.ToString() + "",
                 Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
                 Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
             };
