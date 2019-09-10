@@ -412,6 +412,166 @@ namespace SNOW.Logger
 
 
 
+
+
+
+
+
+
+
+
+
+
+        internal string CommentONIncident(string INCnumber,string comment)
+        {
+            try
+            {
+                //string username = Configuration["ServiceNowUserName"];
+                //string password = Configuration["ServiceNowPassword"];
+                //string url = Configuration["ServiceNowUrl"];
+                var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
+
+
+                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
+
+                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
+                request.Headers.Add("Authorization", auth);
+                request.Headers.Add("Content-Type", "application/json");
+                request.Headers.Add("Accept", "application/json");
+
+                request.Method = "Get";
+                //   CoreBot.models.Incident_api_result incident_Api_Result = null;
+
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    var resforinc = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                    apiresult kbnumberobj = JsonConvert.DeserializeObject<apiresult>(resforinc);
+                    JObject joResponse = JObject.Parse(resforinc.ToString());
+
+                    //CoreBot.models.Incident_api_result incident_api = null;
+
+                    if (kbnumberobj.result != null)
+                    {
+                        if (kbnumberobj.result.Count != 0)
+                        {
+                            if ((kbnumberobj.result[0].sys_id != null) && !(kbnumberobj.result[0].sys_id.Equals("")))
+                            {
+
+
+                                string incident_Api_Result = CommentIncidentipdate(kbnumberobj.result[0].sys_id,comment);
+
+
+                                return incident_Api_Result;
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+                        else
+                        {
+                            return null;
+
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                    // return kbnumberobj;
+
+
+                }
+
+
+
+                string CommentIncidentipdate(string sys_id, string commentit)
+                {
+                    //  string username = Configuration["ServiceNowUserName"];
+                    //string password = Configuration["ServiceNowPassword"];
+                    //string url = Configuration["ServiceNowUrl"];
+                    try
+                    {
+
+                        string username = "admin"; //Configuration["ServiceNowUserName"];
+
+                        string password = "Passw0rd!"; // Configuration["ServiceNowPassword"];
+                        string url = "https://dev84141.service-now.com/api/now/table/incident/"; // Configuration["ServiceNowUrl"];
+
+                        var auth1 = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
+
+                        HttpWebRequest request1 = WebRequest.Create(url + sys_id) as HttpWebRequest;
+                        request1.Headers.Add("Authorization", auth1);
+                        request1.Method = "patch";
+
+                        using (var streamWriter = new StreamWriter(request1.GetRequestStream()))
+                        {
+                            string json = JsonConvert.SerializeObject(new
+                            {
+                                //description = shortDescription + Environment.NewLine + Environment.NewLine + description,
+                                //short_description = description, //Configuration["ServiceNowTicketShortDescription"],
+                                //                                 // contact_type = Configuration["ServiceNowContactType"],
+                                //                                 // category = Configuration["ServiceNowCategory"],
+                                //                                 //subcategory = Configuration["ServiceNowSubCategory"],
+                                //                                 //assignment_group = Configuration["ServiceNowAssignmentGroup"],
+                                //impact = incpriority, //["ServiceNowIncidentImpact"],
+                                //priority = incpriority,//Configuration["ServiceNowIncidentPriority"],
+                                //caller_id = "anirudharpatil@gmail.com"//Configuration["ServiceNowCallerId"],
+                                //                                      //cmdb_ci = Configuration["ServiceNowCatalogueName"],
+                                //                                      //comments = Configuration["ServiceNowTicketShortDescription"]
+                                comments = commentit
+
+                            });
+
+                            streamWriter.Write(json);
+                        }
+
+                        using (HttpWebResponse response = request1.GetResponse() as HttpWebResponse)
+                        {
+                            var res = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                            JObject joResponse = JObject.Parse(res.ToString());
+                            JObject ojObject = (JObject)joResponse["result"];
+                            string incNumber = ((JValue)ojObject.SelectToken("number")).Value.ToString();
+
+                            return incNumber;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return null;
+                    }
+
+
+                }
+
+
+
+
+                // return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         internal apiresult GetIncidentDetails(string INCnumber)
         {
             try

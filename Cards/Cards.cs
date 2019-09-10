@@ -70,6 +70,24 @@ namespace CoreBot.Cards
         }
 
 
+
+
+        public static HeroCard GetHeroCardforStatusUpdate(object incident, object booking, object update )
+        {
+            var heroCard = new HeroCard
+            {
+                Title = "INCIDENT NO: " + incident.ToString(),
+                Subtitle = "SNOW Team Comment" + booking.ToString() + "",
+                Text = "User Comment : " + update.ToString()+"",
+                Images = new List<CardImage> { new CardImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzX4EE5eYZ625C03SfumsuK13kIcpm5nNzJMVyYbVByByuHq--cA") },
+                Buttons = new List<CardAction> { new CardAction(ActionTypes.OpenUrl, "Anything else I can Help you with?", value: "#") },
+            };
+
+            return heroCard;
+        }
+
+
+
         public static ThumbnailCard GetThumbnailCard()
         {
             var heroCard = new ThumbnailCard

@@ -46,6 +46,8 @@ namespace Microsoft.BotBuilderSamples
 
         public string None { get; set; }
         public string Incident_status { get; set; }
+        public string Coment_for_Team { get; set; }
+        public string escalate_option { get; set; }
 
         internal string GetPrioritycode(string prio)
         {
