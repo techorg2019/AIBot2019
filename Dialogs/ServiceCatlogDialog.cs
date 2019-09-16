@@ -74,7 +74,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
               {
                   Prompt = MessageFactory.Text("Ok, Please select the request to be raised from the available catlog."),
                   Choices = ChoiceFactory.ToChoices(new List<string> { catlog1, catlog2 }),
-                  Style = ListStyle.SuggestedAction
+                  Style = ListStyle.HeroCard
                   // Choices = ChoiceFactory.ToChoices(new List<string> { "Add my comment for SNOW team", "Escalate this issue", "I am Satisfied" }),
               }, cancellationToken);
 
