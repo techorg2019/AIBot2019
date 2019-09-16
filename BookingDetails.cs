@@ -43,11 +43,13 @@ namespace Microsoft.BotBuilderSamples
         //}
 
         public string Create_incident { get; set; }
+        public string Create_catalog { get; set; }
 
         public string None { get; set; }
         public string Incident_status { get; set; }
         public string Coment_for_Team { get; set; }
         public string escalate_option { get; set; }
+        public string catlog_option { get; set; }
 
         internal string GetPrioritycode(string prio)
         {

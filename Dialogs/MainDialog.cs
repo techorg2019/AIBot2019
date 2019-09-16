@@ -33,6 +33,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new BookingDialog());
             AddDialog(new IncDialog());
+            AddDialog(new ServiceCatlogDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -75,10 +76,13 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
                 //   return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on March 22, 2020\"") }, cancellationToken);
-             
 
-                 if (bookingDetails.Create_incident.Equals("true"))
+
+
+                if (bookingDetails.Create_catalog.Equals("true"))
                 {
+
+                    bookingDetails.Create_catalog = "false";
                     //     var bookingDetails = stepContext.Result != null
                     //    ?
                     //await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
@@ -89,6 +93,26 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     //  MessageFactory.Text("Incident Created..!"), cancellationToken);
                     //return await stepContext.EndDialogAsync(null, cancellationToken);
 
+                    return await stepContext.BeginDialogAsync(nameof(ServiceCatlogDialog), bookingDetails, cancellationToken);
+
+
+                }
+
+
+
+
+                if (bookingDetails.Create_incident.Equals("true"))
+                {
+                    //     var bookingDetails = stepContext.Result != null
+                    //    ?
+                    //await LuisHelper.ExecuteLuisQuery(Configuration, Logger, stepContext.Context, cancellationToken)
+                    //    :
+                    //new BookingDetails();
+
+                    //await stepContext.Context.SendActivityAsync(
+                    //  MessageFactory.Text("Incident Created..!"), cancellationToken);
+                    //return await stepContext.EndDialogAsync(null, cancellationToken);
+                  //  bookingDetails.Create_incident = "false";
                     return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
 
 
