@@ -1,0 +1,221 @@
+[
+  {
+    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+    "value": "5a6c315e-0c8a-4497-a95b-e63903e1b0bf",
+    "slotSetting": true
+  },
+  {
+    "name": "APPINSIGHTS_PROFILERFEATURE_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "APPINSIGHTS_SNAPSHOTFEATURE_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+    "value": "~2",
+    "slotSetting": true
+  },
+  {
+    "name": "DiagnosticServices_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "InstrumentationEngine_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "LuisAPIHostName",
+    "value": "westus.api.cognitive.microsoft.com",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAPIKey",
+    "value": "3a9e80e3109b40bebb794d037cefadb6",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAppId",
+    "value": "2354674c-e97f-4210-b91f-9d3722bcfe63",
+    "slotSetting": false
+  },
+  {
+    "name": "MicrosoftAppId",
+    "value": "cb1d7947-6a41-4731-8796-eec8dfbec0c0",
+    "slotSetting": false
+  },
+  {
+    "name": "MicrosoftAppPassword",
+    "value": "GJ{_wy0P:RRYb::V?^^3z2WEvW",
+    "slotSetting": false
+  },
+  {
+    "name": "MobileAppsManagement_EXTENSION_VERSION",
+    "value": "latest",
+    "slotSetting": false
+  },
+  {
+    "name": "SnapshotDebugger_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+    "value": "10",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+    "value": "10.14.1",
+    "slotSetting": false
+  },
+  {
+    "name": "XDT_MicrosoftApplicationInsights_BaseExtensions",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "XDT_MicrosoftApplicationInsights_Mode",
+    "value": "default",
+    "slotSetting": true
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+////Working new config
+
+
+
+
+
+
+
+[
+  {
+    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+    "value": "5a6c315e-0c8a-4497-a95b-e63903e1b0bf",
+    "slotSetting": true
+  },
+  {
+    "name": "APPINSIGHTS_PROFILERFEATURE_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "APPINSIGHTS_SNAPSHOTFEATURE_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+    "value": "~2",
+    "slotSetting": true
+  },
+  {
+    "name": "DiagnosticServices_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "InstrumentationEngine_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "LuisAPIHostName",
+    "value": "westus",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAPIHostNameforiter",
+    "value": "https://westus.api.cognitive.microsoft.com",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAPIKey",
+    "value": "3a9e80e3109b40bebb794d037cefadb6",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAppId",
+    "value": "91c1daaa-fb29-44fd-b196-ad71acfef00c",
+    "slotSetting": false
+  },
+  {
+    "name": "LuisAppIdForSnow",
+    "value": "2354674c-e97f-4210-b91f-9d3722bcfe63",
+    "slotSetting": false
+  },
+  {
+    "name": "MicrosoftAppId",
+    "value": "cb1d7947-6a41-4731-8796-eec8dfbec0c0",
+    "slotSetting": false
+  },
+  {
+    "name": "MicrosoftAppPassword",
+    "value": "GJ{_wy0P:RRYb::V?^^3z2WEvW",
+    "slotSetting": false
+  },
+  {
+    "name": "MobileAppsManagement_EXTENSION_VERSION",
+    "value": "latest",
+    "slotSetting": false
+  },
+  {
+    "name": "QnAEndpointHostName",
+    "value": "https://aiqnaservice.azurewebsites.net/qnamaker",
+    "slotSetting": false
+  },
+  {
+    "name": "QnAEndpointKey",
+    "value": "99c10ea7-1fa7-4a16-934d-ed9d3f7e06ea",
+    "slotSetting": false
+  },
+  {
+    "name": "QnAKnowledgebaseId",
+    "value": "7aba3a32-cf19-4be9-8460-c33c1331d0a1",
+    "slotSetting": false
+  },
+  {
+    "name": "SnapshotDebugger_EXTENSION_VERSION",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "WEBSITE_HTTPLOGGING_RETENTION_DAYS",
+    "value": "10",
+    "slotSetting": false
+  },
+  {
+    "name": "WEBSITE_NODE_DEFAULT_VERSION",
+    "value": "10.14.1",
+    "slotSetting": false
+  },
+  {
+    "name": "XDT_MicrosoftApplicationInsights_BaseExtensions",
+    "value": "disabled",
+    "slotSetting": true
+  },
+  {
+    "name": "XDT_MicrosoftApplicationInsights_Mode",
+    "value": "default",
+    "slotSetting": true
+  }
+]
+
+
