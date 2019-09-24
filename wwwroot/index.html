@@ -96,10 +96,10 @@
         // or launch Chrome (close all the existing Chrome browsers) with the following option:
         // chrome.exe --allow-file-access-from-files <sampleHtmlFile>
         //
-        // const speechOptions = {
-        //    speechRecognizer: new BotChat.Speech.BrowserSpeechRecognizer(),
-        //     speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
-        //   };
+        const speechOptions = {
+            speechRecognizer: new BotChat.Speech.BrowserSpeechRecognizer(),
+            speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
+        };
 
         // // Option 3: Cognitive Services speech recognition using API key (cross browser, speech priming support)
         //
@@ -112,36 +112,36 @@
                 voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
               })
             };
-          */
-        //
+
+          */  //
 
         // // Option 4: Cognitive Services speech recognition using a token (usually generated in a secure backend using your API key)
         //
-        function getToken() {
-            // Normally this token fetch is done from your secured backend to avoid exposing the API key and this call
-            // would be to your backend, or to retrieve a token that was served as part of the original page.
-            //https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken
+        /*   function getToken() {
+             // Normally this token fetch is done from your secured backend to avoid exposing the API key and this call
+             // would be to your backend, or to retrieve a token that was served as part of the original page.
+//https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken
             return fetch(
-                // 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
-                'https://centralindia.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
-                {
-                    headers: {
-                        'Ocp-Apim-Subscription-Key': '0f7c74877e164b009eed7be42abcf36b'
-                        //	  'Authorization: Bearer'
-                    },
-                    method: 'POST'
-                }
-            ).then(res => res.text());
-        }
+              // 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
+               'https://centralindia.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
+               {
+                 headers: {
+                  'Ocp-Apim-Subscription-Key': '0f7c74877e164b009eed7be42abcf36b'
+            //	  'Authorization: Bearer'
+                },
+                 method: 'POST'
+               }
+             ).then(res => res.text());
+           }
 
-        const speechOptions = {
-            speechRecognizer: new CognitiveServices.SpeechRecognizer({
-                fetchCallback: (authFetchEventId) => getToken(),
-                fetchOnExpiryCallback: (authFetchEventId) => getToken()
-            }),
-            speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
-        };
-
+           const speechOptions = {
+             speechRecognizer: new CognitiveServices.SpeechRecognizer({
+               fetchCallback: (authFetchEventId) => getToken(),
+               fetchOnExpiryCallback: (authFetchEventId) => getToken()
+             }),
+             speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
+           };
+          */
         // // Option 5: Your own custom implementations of ISpeechRecognizer and ISpeechSynthesizer
         //
         // const speechOptions = {
