@@ -61,6 +61,7 @@
         <h2>Web Chat with Fujitsu speech</h2>
         <p>
             This shows the speech recognition and speech synthesis in the Web Chat
+
         </p>
     </section>
 
@@ -105,29 +106,29 @@
         //
         /*
             const speechOptions = {
-              speechRecognizer: new CognitiveServices.SpeechRecognizer({ subscriptionKey: '0f7c74877e164b009eed7be42abcf36b' }),
+              speechRecognizer: new CognitiveServices.SpeechRecognizer({ subscriptionKey: 'f8421c5b73934516928efc9c62453727' }),
               speechSynthesizer: new CognitiveServices.SpeechSynthesizer({
                 gender: CognitiveServices.SynthesisGender.Female,
-                subscriptionKey: '0f7c74877e164b009eed7be42abcf36b',
+                subscriptionKey: 'f8421c5b73934516928efc9c62453727',
                 voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
               })
             };
-
-          */  //
+          */
+        //
 
         // // Option 4: Cognitive Services speech recognition using a token (usually generated in a secure backend using your API key)
-        //
+
         /*   function getToken() {
              // Normally this token fetch is done from your secured backend to avoid exposing the API key and this call
              // would be to your backend, or to retrieve a token that was served as part of the original page.
 //https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken
             return fetch(
               // 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
-               'https://centralindia.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
+               'https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
                {
                  headers: {
-                  'Ocp-Apim-Subscription-Key': '0f7c74877e164b009eed7be42abcf36b'
-            //	  'Authorization: Bearer'
+                 'Ocp-Apim-Subscription-Key': '6792b4922c90496999c94bfe41dc9451'
+                //'Authorization:Bearer '0f7c74877e164b009eed7be42abcf36b'
                 },
                  method: 'POST'
                }
@@ -159,11 +160,13 @@
 
             directLine: {
                 domain: params['domain'],
-                secret: params['s'],
+                secret: 'JBXiEO3TR-0.17nfuY_jYmTn6cfxUowXjjI-3h5IyUtVNuuhAeaGU5g',
                 token: params['t'],
                 webSocket: params['webSocket'] && params['webSocket'] === 'true' // defaults to true
             }
         }, document.getElementById('BotChatGoesHere'));
     </script>
+
+
 </body>
 </html>
