@@ -166,6 +166,10 @@ namespace Microsoft.BotBuilderSamples.Bots
 
                 await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
 
+                await turnContext.SendActivityAsync(Speak($"Hello and welcome!"), cancellationToken);
+
+                await turnContext.SendActivityAsync(Speak(results.First().Answer.ToString()), cancellationToken);
+
                 Speak(results.First().Answer);
             }
             else
@@ -176,15 +180,19 @@ namespace Microsoft.BotBuilderSamples.Bots
 
 
 
+       
+
         public IActivity Speak(string message)
         {
             var activity = MessageFactory.Text(message);
             string body = @"<speak version='1.0' xmlns='https://www.w3.org/2001/10/synthesis' xml:lang='en-US'>
-        <voice name='Microsoft Server Speech Text to Speech Voice (en-US, JessaNeural)'>" +
-                $"{message}" + "</voice></speak>";
+              <voice name='Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'>" +
+              $"{message}" + "</voice></speak>";
             activity.Speak = body;
             return activity;
         }
+
+
 
 
 
