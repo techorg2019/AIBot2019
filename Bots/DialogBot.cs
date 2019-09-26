@@ -166,11 +166,11 @@ namespace Microsoft.BotBuilderSamples.Bots
 
                 await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
 
-                await turnContext.SendActivityAsync(Speak($"Hello and welcome!"), cancellationToken);
+               // await turnContext.SendActivityAsync(Speak($"Hello and welcome!"), cancellationToken);
 
                 await turnContext.SendActivityAsync(Speak(results.First().Answer.ToString()), cancellationToken);
 
-                Speak(results.First().Answer);
+               // Speak(results.First().Answer);
             }
             else
             {
