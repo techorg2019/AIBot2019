@@ -164,7 +164,7 @@ namespace Microsoft.BotBuilderSamples.Bots
 
                
 
-                await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
+            //    await turnContext.SendActivityAsync(MessageFactory.Text(results.First().Answer), cancellationToken);
 
                // await turnContext.SendActivityAsync(Speak($"Hello and welcome!"), cancellationToken);
 
