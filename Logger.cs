@@ -38,7 +38,7 @@ namespace SNOW.Logger
                 string username = "admin"; //Configuration["ServiceNowUserName"];
 
                 string password = "Passw0rd!"; // Configuration["ServiceNowPassword"];
-                string url = "https://dev84141.service-now.com/api/now/table/"; // Configuration["ServiceNowUrl"];
+                string url = "https://dev77188.service-now.com/api/now/table/"; // Configuration["ServiceNowUrl"];
 
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
@@ -102,7 +102,7 @@ namespace SNOW.Logger
 
                 //DataSet ds = null;
                 //HttpClient client = new HttpClient();
-                //client.BaseAddress = new Uri("https://dev84141.service-now.com");
+                //client.BaseAddress = new Uri("https://dev77188.service-now.com");
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 //client.DefaultRequestHeaders.Authorization = new BasicAuthenticationHeaderValue(username, password)
 
@@ -122,9 +122,9 @@ namespace SNOW.Logger
 
 
                 //HttpWebRequest request = WebRequest.Create(url+"kb_knowledge?") as HttpWebRequest;
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=" + shortDescription + "&sysparm_fields=number,short_description,text&sysparm_limit=10") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=" + shortDescription + "&sysparm_fields=number,short_description,text&sysparm_limit=10") as HttpWebRequest;
 
-                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=10
+                //https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=10
                 request.Headers.Add("Authorization", auth);
                 request.Headers.Add("Content-Type", "application/json");
                 request.Headers.Add("Accept", "application/json");
@@ -249,9 +249,9 @@ namespace SNOW.Logger
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
 
 
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/kb_knowledge?number=" + kbnumber.ToUpper() + "&sysparm_fields=number,short_description,text&sysparm_limit=10") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev77188.service-now.com/api/now/table/kb_knowledge?number=" + kbnumber.ToUpper() + "&sysparm_fields=number,short_description,text&sysparm_limit=10") as HttpWebRequest;
 
-                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=10
+                //https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=10
                 request.Headers.Add("Authorization", auth);
                 request.Headers.Add("Content-Type", "application/json");
                 request.Headers.Add("Accept", "application/json");
@@ -301,9 +301,9 @@ namespace SNOW.Logger
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
 
 
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev77188.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
 
-                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
+                //https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
                 request.Headers.Add("Authorization", auth);
                 request.Headers.Add("Content-Type", "application/json");
                 request.Headers.Add("Accept", "application/json");
@@ -364,7 +364,7 @@ namespace SNOW.Logger
                     {
                         var auth1 = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
 
-                        HttpWebRequest requestforIncstatus = WebRequest.Create("https://dev84141.service-now.com/api/now/table/sys_journal_field?sysparm_query=element_id=" + sys_id + "&sysparm_limit=1") as HttpWebRequest;
+                        HttpWebRequest requestforIncstatus = WebRequest.Create("https://dev77188.service-now.com/api/now/table/sys_journal_field?sysparm_query=element_id=" + sys_id + "&sysparm_limit=1") as HttpWebRequest;
 
                         requestforIncstatus.Headers.Add("Authorization", auth1);
                         requestforIncstatus.Headers.Add("Content-Type", "application/json");
@@ -432,9 +432,9 @@ namespace SNOW.Logger
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
 
 
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev77188.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
 
-                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
+                //https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
                 request.Headers.Add("Authorization", auth);
                 request.Headers.Add("Content-Type", "application/json");
                 request.Headers.Add("Accept", "application/json");
@@ -497,7 +497,7 @@ namespace SNOW.Logger
                         string username = "admin"; //Configuration["ServiceNowUserName"];
 
                         string password = "Passw0rd!"; // Configuration["ServiceNowPassword"];
-                        string url = "https://dev84141.service-now.com/api/now/table/incident/"; // Configuration["ServiceNowUrl"];
+                        string url = "https://dev77188.service-now.com/api/now/table/incident/"; // Configuration["ServiceNowUrl"];
 
                         var auth1 = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
@@ -582,9 +582,9 @@ namespace SNOW.Logger
                 var auth2 = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("admin" + ":" + "Passw0rd!"));
 
 
-                HttpWebRequest request = WebRequest.Create("https://dev84141.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("https://dev77188.service-now.com/api/now/table/incident?sysparm_query=GOTOnumber=" + INCnumber + "&sysparm_limit=1") as HttpWebRequest;
 
-                //https://dev84141.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
+                //https://dev77188.service-now.com/api/now/table/kb_knowledge?sysparm_query=GOTO123TEXTQUERY321%3Dlaptop&sysparm_limit=1
                 request.Headers.Add("Authorization", auth2);
                 request.Headers.Add("Content-Type", "application/json");
                 request.Headers.Add("Accept", "application/json");
