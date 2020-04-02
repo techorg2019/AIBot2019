@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using CoreBot.Cards;
@@ -34,6 +36,8 @@ namespace Microsoft.BotBuilderSamples.Dialogs
               DestinationStepAsync,
               OriginStepAsync,
                 TravelDateStepAsync,
+                ScrenShotConfirmStepAsync,
+                Attcchentupload,
                 ConfirmStepAsync,
                 FinalStepAsync,
             }));
@@ -47,7 +51,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             var bookingDetails = (BookingDetails)stepContext.Options;
 
-         
+
 
             if (bookingDetails.Short_desc == null)
             {
@@ -61,7 +65,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
         private async Task<DialogTurnResult> OriginStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-           var bookingDetails = (BookingDetails)stepContext.Options;
+            var bookingDetails = (BookingDetails)stepContext.Options;
 
             bookingDetails.Short_desc = (string)stepContext.Result;
 
@@ -92,13 +96,81 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-            //    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: \n 1. High \n 2.Medium \n 3.Low ") }, cancellationToken);
+                //    return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter incident priority: \n 1. High \n 2.Medium \n 3.Low ") }, cancellationToken);
             }
             else
-                {
+            {
                 return await stepContext.NextAsync(bookingDetails, cancellationToken);
             }
         }
+
+
+        private async Task<DialogTurnResult> ScrenShotConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            var bookingDetails = (BookingDetails)stepContext.Options;
+
+            bookingDetails.Priority = (string)stepContext.Context.Activity.Text;
+
+            //var msg = $"Please confirm incident detail: \n Title: {bookingDetails.Short_desc} \n Description: {bookingDetails.Descrip} \n Priority: {bookingDetails.Priority}";
+            //     var msg = $"Are you satisfied with the input? ";
+
+            //var attachments = new List<Attachment>();
+
+            //// Reply to the activity we received with an activity.
+            //var reply = MessageFactory.Attachment(attachments);
+
+            //reply.Attachments.Add(Cards.GetHeroCardConfirm(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.Priority).ToAttachment());
+
+            //await stepContext.Context.SendActivityAsync(reply, cancellationToken);
+
+
+
+
+            //return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if I can create this incident for you ?", "Confirmation", "Confirmation") }, cancellationToken);
+
+            await stepContext.PromptAsync(
+           nameof(ConfirmPrompt),
+           new PromptOptions
+           {
+               Prompt = MessageFactory.Text($"Can you upload a file?"),
+           });
+
+            return await stepContext.NextAsync(bookingDetails, cancellationToken);
+        }
+
+
+
+
+        private async Task<DialogTurnResult> Attcchentupload(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+
+            var bookingDetails = (BookingDetails)stepContext.Options;
+
+            List<Attachment> attachments = (List<Attachment>)stepContext.Result;
+            string replyText = string.Empty;
+            foreach (var file in attachments)
+            {
+                // Determine where the file is hosted.
+                var remoteFileUrl = file.ContentUrl;
+
+                // Save the attachment to the system temp directory.
+                var localFileName = Path.Combine(Path.GetTempPath(), file.Name);
+
+                // Download the actual attachment
+                using (var webClient = new WebClient())
+                {
+                    webClient.DownloadFile(remoteFileUrl, localFileName);
+                }
+
+                replyText += $"Attachment \"{file.Name}\"" +
+                             $" has been received and saved to \"{localFileName}\"\r\n";
+                return await stepContext.NextAsync(bookingDetails, cancellationToken);
+            }
+
+
+
+        }
+
 
         private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -121,18 +193,18 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if I can create this incident for you ?", "Confirmation","Confirmation") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if I can create this incident for you ?", "Confirmation", "Confirmation") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             if ((bool)stepContext.Result)
             {
-               var bookingDetails = (BookingDetails)stepContext.Options;
+                var bookingDetails = (BookingDetails)stepContext.Options;
 
                 SNOWLogger nOWLogger1 = new SNOWLogger(Configuration);
 
-                string incident1 = nOWLogger1.CreateIncidentServiceNow(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.GetPrioritycode(bookingDetails.Priority) );
+                string incident1 = nOWLogger1.CreateIncidentServiceNow(bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.GetPrioritycode(bookingDetails.Priority));
 
 
                 if (incident1 != null)
@@ -146,7 +218,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                     // Reply to the activity we received with an activity.
                     var reply = MessageFactory.Attachment(attachments);
 
-                    reply.Attachments.Add(Cards.GetHeroCard(incident1, bookingDetails.Short_desc,bookingDetails.Descrip,bookingDetails.Priority).ToAttachment());
+                    reply.Attachments.Add(Cards.GetHeroCard(incident1, bookingDetails.Short_desc, bookingDetails.Descrip, bookingDetails.Priority).ToAttachment());
 
                     await stepContext.Context.SendActivityAsync(reply, cancellationToken);
 
@@ -154,27 +226,27 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
 
 
-                  //  await stepContext.Context.SendActivityAsync(
-                  //MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
+                    //  await stepContext.Context.SendActivityAsync(
+                    //MessageFactory.Text("Incident No: "+ incident1+" Created for: "+bookingDetails.Short_desc+ "\n is there anything I can help you with ?", null,null));
                     stepContext.Context.TurnState.Add("incID", bookingDetails);
 
                     return await stepContext.EndDialogAsync(bookingDetails, cancellationToken);
                 }
                 //   stepContext = null;
                 return await stepContext.CancelAllDialogsAsync();
-               // return await stepContext.EndDialogAsync(null, cancellationToken);
+                // return await stepContext.EndDialogAsync(null, cancellationToken);
             }
             else
             {
                 await stepContext.Context.SendActivityAsync(
                   MessageFactory.Text("Incient creation aborted ! \n is there anything I can help you with ? ", null, null));
-               // stepContext = null;
+                // stepContext = null;
 
 
                 return await stepContext.EndDialogAsync(null, cancellationToken);
             }
         }
-
+    }
         private static bool IsAmbiguous(string timex)
         {
             var timexProperty = new TimexProperty(timex);

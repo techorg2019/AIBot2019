@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace SNOW.Logger
 
         }
 
-
+        //https://dev77188.service-now.com/sys_attachment_list.do
+        //Create Attachments using GlideSysAttachment()
 
 
         protected readonly IConfiguration Configuration;
@@ -76,7 +78,39 @@ namespace SNOW.Logger
                     JObject ojObject = (JObject)joResponse["result"];
                     string incNumber = ((JValue)ojObject.SelectToken("number")).Value.ToString();
 
+                    string newsysID = ((JValue)ojObject.SelectToken("sys_id")).Value.ToString();
+
+
+
+
+                    var client = new RestClient("https://dev77188.service-now.com/api/now/attachment/upload");
+                    var request1 = new RestRequest(Method.POST);
+                    // request1.AddHeader("postman-token", "281835e5-62f7-3166-99f4-1e231b454f21");
+                    // request1.AddHeader("cache-control", "no-cache");
+                    request1.AddHeader("Accept", "*/*");
+                    request1.AddHeader("authorization", auth);
+                    request1.AddHeader("content-type", "multipart/form-data");
+                    request1.AddParameter("table_name", "incident");
+                    request1.AddParameter("table_sys_id", newsysID);
+                    
+                    
+                  //  "table_sys_id\"\r\n\r\n9acd0385db030010fbc6e9c94896190e\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"Xampp.PNG\"; filename=\"Xampp.PNG\"\r\nContent-Type: image/png\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--", ParameterType.RequestBody);
+                    request1.AddFile("Xampp.PNG", "D:\\Xampp.PNG");
+                    IRestResponse response1 = client.Execute(request1);
+
+
+
+
                     return incNumber;
+
+
+
+
+
+
+
+
+
                 }
             }
             catch (Exception ex)
