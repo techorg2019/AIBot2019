@@ -293,7 +293,10 @@
         };
 
         recognition.onend = function () {
-            recognizing = false;
+            recognizing = true;
+
+            recognition.start();
+
             if (ignore_onend) {
                 return;
             }
@@ -328,7 +331,7 @@
                 //this.recognition.start();
              //   restartListen();
             //}
-            restartListen();
+           // restartListen();
 
 
 
