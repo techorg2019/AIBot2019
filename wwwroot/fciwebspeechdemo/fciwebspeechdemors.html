@@ -162,7 +162,17 @@
             <select id="select_dialect"></select>
         </div>
 </div>
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+
 <script>
+
+
+
     var langs =
         [['Afrikaans', ['af-ZA']],
         ['Bahasa Indonesia', ['id-ID']],
@@ -256,6 +266,8 @@
     var ignore_onend;
     var start_timestamp;
     this.lastStartedAt = this.autorestartCount = 0;
+
+    var zoom_level = 100;
     if (!('webkitSpeechRecognition' in window)) {
         upgrade();
     } else {
@@ -324,14 +336,14 @@
             console.log(formatCurrentTime(), 'recognition.onend', ev);
 
             // this is not needed since we get it when we got final results.
-           // if (_this.running) {
-               // if (_this.transcript) {
-                 //   Asr.sendTranscript(_this.transcript);
-                // }
-                //this.recognition.start();
-             //   restartListen();
+            // if (_this.running) {
+            // if (_this.transcript) {
+            //   Asr.sendTranscript(_this.transcript);
+            // }
+            //this.recognition.start();
+            //   restartListen();
             //}
-           // restartListen();
+            // restartListen();
 
 
 
@@ -354,9 +366,9 @@
 
 
 
-            if (event.results[event.results.length - 1][0].transcript.includes("down") || event.results[event.results.length - 1][0].transcript.includes("Down") ) {
+            if (event.results[event.results.length - 1][0].transcript.includes("down") || event.results[event.results.length - 1][0].transcript.includes("Down")) {
 
-             window.scrollBy(0,100);
+                window.scrollBy(0, 100);
 
             }
 
@@ -372,13 +384,63 @@
 
             if (event.results[event.results.length - 1][0].transcript.includes("Up") || event.results[event.results.length - 1][0].transcript.includes("up")) {
 
-              window.scrollBy(0,-100);
+                window.scrollBy(0, -100);
+
+            }
+
+
+            if (event.results[event.results.length - 1][0].transcript.includes("top") || event.results[event.results.length - 1][0].transcript.includes("Top")) {
+
+                //window.scrollBy(0, -100);
+
+
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
 
             }
 
 
 
 
+
+
+            if (event.results[event.results.length - 1][0].transcript.includes("plus") || event.results[event.results.length - 1][0].transcript.includes("Plus")) {
+
+                //window.scrollBy(0, -100);
+
+                //  zoom_page(10,this);
+                plus();
+
+            }
+
+
+
+            if (event.results[event.results.length - 1][0].transcript.includes("minus") || event.results[event.results.length - 1][0].transcript.includes("minus")) {
+
+                //window.scrollBy(0, -100);
+
+                //zoom_page(-10,this);
+                minus();
+            }
+
+
+
+            if (event.results[event.results.length - 1][0].transcript.includes("reset") || event.results[event.results.length - 1][0].transcript.includes("Reset")) {
+
+                //window.scrollBy(0, -100);
+
+                //  zoom_page(10,this);
+                reset();
+
+            }
+
+            if (event.results[event.results.length - 1][0].transcript.includes("back") || event.results[event.results.length - 1][0].transcript.includes("Back")) {
+
+                //window.scrollBy(0, -100);
+
+                window.history.back();
+
+            }
 
 
 
@@ -487,7 +549,7 @@
 
 
 
- function restartListen () {
+    function restartListen() {
         var _this = this;
         console.log('restartListen');
         // play nicely with the browser, and never restart annyang automatically more than once per second
@@ -495,7 +557,7 @@
         _this.autorestartCount += 1;
         if (_this.autorestartCount % 10 === 0) {
             console.warn('Speech Recognition is repeatedly stopping and starting.maybe you have two windows with speech recognition open?');
-          }
+        }
 
         if (timeSinceLastStart < 1000) {
             setTimeout(function () {
@@ -507,6 +569,71 @@
     }
 
 
+
+
+
+
+
+
+    var currFFZoom = 1;
+    var currIEZoom = 100;
+
+    function plus() {
+        //alert('sad');
+        var step = 0.02;
+        currFFZoom += step;
+        $('body').css('MozTransform', 'scale(' + currFFZoom + ')');
+        var stepie = 2;
+        currIEZoom += stepie;
+        $('body').css('zoom', ' ' + currIEZoom + '%');
+
+    };
+    function minus() {
+        //alert('sad');
+        var step = 0.02;
+        currFFZoom -= step;
+        $('body').css('MozTransform', 'scale(' + currFFZoom + ')');
+        var stepie = 2;
+        currIEZoom -= stepie;
+        $('body').css('zoom', ' ' + currIEZoom + '%');
+    };
+
+
+    function reset() {
+        document.body.style.zoom = "100%";
+    };
+
+
+
+
+
+
+
+    // Zoom function
+    function zoom_page(step, trigger) {
+        // Zoom just to steps in or out
+        if (zoom_level >= 120 && step > 0 || zoom_level <= 80 && step < 0) return;
+
+        // Set / reset zoom
+        if (step == 0) zoom_level = 100;
+        else zoom_level = zoom_level + step;
+
+        // Set page zoom via CSS
+        $('body').css({
+            transform: 'scale(' + (zoom_level / 100) + ')', // set zoom
+            transformOrigin: '50% 0' // set transform scale base
+        });
+
+        // Adjust page to zoom width
+        if (zoom_level > 100) $('body').css({ width: (zoom_level * 1.2) + '%' });
+        else $('body').css({ width: '100%' });
+
+        // Activate / deaktivate trigger (use CSS to make them look different)
+        if (zoom_level >= 120 || zoom_level <= 80) trigger.addClass('disabled');
+        else trigger.parents('ul').find('.disabled').removeClass('disabled');
+        if (zoom_level != 100) $('#zoom_reset').removeClass('disabled');
+        else $('#zoom_reset').addClass('disabled');
+    }
 
 
 </script>
