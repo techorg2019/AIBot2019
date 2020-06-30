@@ -34,10 +34,6 @@
     <PackageReference Include="Microsoft.Bot.StreamingExtensions" Version="4.5.1-preview1" />
     <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.6.0" />
     <PackageReference Include="Microsoft.Recognizers.Text.DataTypes.TimexExpression" Version="1.1.5" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.9.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <Import Project="PostDeployScripts\IncludeSources.targets" Condition="Exists('PostDeployScripts\IncludeSources.targets')" />
