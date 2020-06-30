@@ -24,7 +24,7 @@ namespace Microsoft.BotBuilderSamples.Bots
         {
             foreach (var member in membersAdded)
             {
-                // Greet anyone that was not the target (recipient) of this message.
+                // Greet anyone that was not the target (recipient) of this message.D:\Ofc\AIBot\Bots\DialogAndWelcomeBot.cs
                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
