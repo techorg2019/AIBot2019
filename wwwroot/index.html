@@ -97,37 +97,37 @@
         // or launch Chrome (close all the existing Chrome browsers) with the following option:
         // chrome.exe --allow-file-access-from-files <sampleHtmlFile>
         //
-        const speechOptions = {
-            speechRecognizer: new BotChat.Speech.BrowserSpeechRecognizer(),
-            speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
-        };
+        //const speechOptions = {
+          //  speechRecognizer: new BotChat.Speech.BrowserSpeechRecognizer(),
+            //speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
+        //};
 
         // // Option 3: Cognitive Services speech recognition using API key (cross browser, speech priming support)
         //
-        /*
+      
             const speechOptions = {
-              speechRecognizer: new CognitiveServices.SpeechRecognizer({ subscriptionKey: 'f8421c5b73934516928efc9c62453727' }),
+                speechRecognizer: new CognitiveServices.SpeechRecognizer({ subscriptionKey: '1c651a64cd4340d698463a9255af8ccf' }),
               speechSynthesizer: new CognitiveServices.SpeechSynthesizer({
                 gender: CognitiveServices.SynthesisGender.Female,
-                subscriptionKey: 'f8421c5b73934516928efc9c62453727',
-                voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
+                  subscriptionKey: '1c651a64cd4340d698463a9255af8ccf',
+                  regionOptions:'westus2',
+                  voiceName: 'Microsoft Server Speech Text to Speech Voice (hi-IN, Kalpana)'
               })
             };
-          */
+         
         //
 
         // // Option 4: Cognitive Services speech recognition using a token (usually generated in a secure backend using your API key)
-
-        /*   function getToken() {
+        /*
+           function getToken() {
              // Normally this token fetch is done from your secured backend to avoid exposing the API key and this call
              // would be to your backend, or to retrieve a token that was served as part of the original page.
-//https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken
-            return fetch(
-              // 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken',
-               'https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
+            //https://eastus.api.cognitive.microsoft.com/sts/v1.0/issuetoken
+            return fetch(           
+               'https://westus2.api.cognitive.microsoft.com/sts/v1.0/issuetoken',
                {
                  headers: {
-                 'Ocp-Apim-Subscription-Key': '6792b4922c90496999c94bfe41dc9451'
+                       'Ocp-Apim-Subscription-Key': '1c651a64cd4340d698463a9255af8ccf'
                 //'Authorization:Bearer '0f7c74877e164b009eed7be42abcf36b'
                 },
                  method: 'POST'
