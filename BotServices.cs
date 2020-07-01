@@ -22,7 +22,7 @@ namespace Microsoft.BotBuilderSamples
                 true);
 
 
-            // Read the setting for cognitive services (LUIS, QnA) from the appsettings.json
+                   // Read the setting for cognitive services (LUIS, QnA) from the appsettings.json
             SnowLuis = new LuisRecognizer(new LuisApplication(
                 configuration["LuisAppIdForSnow"],
                 configuration["LuisAPIKey"],
